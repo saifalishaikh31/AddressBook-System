@@ -10,6 +10,8 @@ namespace AddressBookSystem
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Address Book Program");
+            AddressBookMain addressbook = new AddressBookMain();
+            addressbook.AddContact();
             Console.ReadKey();
         }
     }
