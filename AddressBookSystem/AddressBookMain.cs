@@ -103,7 +103,19 @@ namespace AddressBookSystem
             }
         }
 
-       
+        public void DeleteContact(string firsName)
+        {
+            Contacts contact = new Contacts();
+            foreach (var data in addressBook)
+            {
+                if (data.firstName == firsName)
+                {
+                    contact = data;
+                    return;
+                }
+            }
+            addressBook.Remove(contact);
+        }
         public void Display()
         {
             foreach (var data in addressBook)
