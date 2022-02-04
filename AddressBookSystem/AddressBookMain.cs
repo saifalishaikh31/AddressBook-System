@@ -110,11 +110,12 @@ namespace AddressBookSystem
             {
                 if (data.firstName == firsName)
                 {
-                    contact = data;
+                    contact = data;                
+                    addressBook.Remove(contact);
+                    Console.WriteLine("{0}'s Contact Successfully Deleted", contact.firstName);
                     return;
                 }
             }
-            addressBook.Remove(contact);
         }
         public void Display()
         {
