@@ -7,7 +7,69 @@ namespace AddressBookSystem
 {
     class AddressBookMain
     {
+        public Dictionary<string, List<Contacts>> myAddressBook = new Dictionary<string, List<Contacts>>();
         List<Contacts> addressBook = new List<Contacts>();
+
+        public void AddAddressBook()
+        {
+            bool flag = true;
+            while (flag)
+            {
+                Console.WriteLine("\n1.Create New AddressBook"
+                                 +"\n2.Existing AddressBook"
+                                 +"\n3.Exit");
+                int option = Convert.ToInt32(Console.ReadLine());
+                switch (option)
+                {
+                    case 1: 
+                        AddressBookNewNameValidator();
+                        break;
+                    case 2:
+                        AddressBookExistingNameValidator();
+                        break;
+                    case 3:
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Choose Correct Option!!!");
+                        break;
+                }
+            }
+        }
+
+        public void AddressBookNewNameValidator()
+        {
+            Console.WriteLine("Enter the new addressbook name\n");
+            string addressBookName = Console.ReadLine();
+            if (myAddressBook.ContainsKey(addressBookName))
+            {
+                Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
+                AddressBookNewNameValidator();
+            }
+            else
+            {
+                AddContact();
+                Console.WriteLine("Added to AddressBook : {0}", addressBookName);
+            }
+        }
+
+        public void AddressBookExistingNameValidator()
+        {
+            Console.WriteLine("Enter into the Existing addressbook name\n");
+            string addressBookName = Console.ReadLine();
+            if (myAddressBook.ContainsKey(addressBookName))
+            {
+                Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
+                AddressBookExistingNameValidator();
+            }
+            else
+            {
+                AddContact();
+                Console.WriteLine("Added to AddressBook : {0}", addressBookName);
+            }
+        }
+
+
         public void AddContact()
         {
             Console.Write("How many person's contact details do you want to add? : ");
@@ -42,6 +104,7 @@ namespace AddressBookSystem
                                 + "\n" + contacts.eMail);
                 addressBook.Add(contacts);
                 Console.WriteLine("{0}'s Contact Successfully Added", contacts.firstName);
+                //Console.WriteLine("Added to {0}", addressBookName);
                 personNum--;
             }
         }

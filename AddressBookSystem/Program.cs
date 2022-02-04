@@ -11,6 +11,7 @@ namespace AddressBookSystem
         {
             Console.WriteLine("Welcome to Address Book Program");
             AddressBookMain addressbook = new AddressBookMain();
+            addressbook.AddAddressBook();
             bool flag = true;
             while (flag)
             {
