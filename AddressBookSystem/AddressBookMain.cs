@@ -10,7 +10,6 @@ namespace AddressBookSystem
         List<Contacts> addressBook = new List<Contacts>();
         public Dictionary<string, List<Contacts>> myAddressBook = new Dictionary<string, List<Contacts>>();
 
-
         public void AddAddressBook()
         {
             bool flag = true;
@@ -85,7 +84,8 @@ namespace AddressBookSystem
                                 + "\n 4.Display Contact."
                                 + "\n 5.Go To Main."
                                 + "\n 6.Search by city or state"
-                                + "\n 7.Exit.\n");
+                                + "\n 7.View by City or state"
+                                + "\n 8.Exit.\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -105,14 +105,17 @@ namespace AddressBookSystem
                         AddAddressBook();
                         break;
                     case 6:
-                    //    Console.WriteLine("Enter address book Name");
-                    //    string addBookName = Console.ReadLine();
+                        //    Console.WriteLine("Enter address book Name");
+                        //    string addBookName = Console.ReadLine();
                         Console.WriteLine("Enter city or state to search contact");
                         string cityOrState = Console.ReadLine();
                         //SearchPersonByCityOrState(addBookName, cityOrState);
                         SearchPersonByCityOrState(addressBookName, cityOrState);
                         break;
                     case 7:
+                        ViewPersonByCityOrState(addressBookName);
+                        break;
+                    case 8:
                         flag = false;
                         break;
                     default:
@@ -311,16 +314,75 @@ namespace AddressBookSystem
             {
                 foreach (var item in searchResut)
                 {
-                    Console.WriteLine(item.firstName);
+                    Console.WriteLine("First Name :" + item.firstName);
                 }
             }
             else
             {
                 Console.WriteLine("No person found for this city or state");
-            } 
+            }
+        }
+
+        public void ViewPersonByCityOrState(string addressBookName)
+        {
+            if (myAddressBook[addressBookName].Count <= 0)
+            {
+                Console.WriteLine("Your Address Book is empty");
+                return;
+            }
+            Contacts contact = new Contacts();
+            bool flag = true;
+            while (flag)
+            {
+                Console.WriteLine("Choose an option \n1. View Person by city \n2. View Person by state \n3.Exit");
+                int option = Convert.ToInt32(Console.ReadLine());
+                switch (option)
+                {
+                    case 1:
+                        Console.WriteLine("Enter the city");
+                        string city = Console.ReadLine();
+                        var searchCity = myAddressBook[addressBookName].FindAll(x => x.city == city);
+                        if (searchCity.Count != 0)
+                        {
+                            foreach (var item in searchCity)
+                            {
+                                Console.WriteLine("First Name :" + item.firstName);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No person found for this city");
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter the state");
+                        string state = Console.ReadLine();
+                        var searchState = myAddressBook[addressBookName].FindAll(x => x.state == state);
+                        if (searchState.Count != 0)
+                        {
+                            foreach (var item in searchState)
+                            {
+                                Console.WriteLine("First Name :" + item.firstName);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No person found for this state");
+                        }
+                        break;
+                    case 3:
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Choose correct option");
+                        break;
+                }
+            }
         }
     }
 }
+    
+
 
 
 
