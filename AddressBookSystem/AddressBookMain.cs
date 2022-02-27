@@ -148,18 +148,28 @@ namespace AddressBookSystem
                 contacts.phoneNunmber = Console.ReadLine();
                 Console.Write("Enter Email        : ");
                 contacts.eMail = Console.ReadLine();
-                Console.WriteLine("\nCreated Contact :"
-                                + "\n" + contacts.firstName
-                                + "\n" + contacts.lastName
-                                + "\n" + contacts.address
-                                + "\n" + contacts.city
-                                + "\n" + contacts.state
-                                + "\n" + contacts.zipCode
-                                + "\n" + contacts.phoneNunmber
-                                + "\n" + contacts.eMail);
-                myAddressBook[addressBookName].Add(contacts);
-                Console.WriteLine("{0}'s Contact Successfully Added to AddressBook : {1} ", contacts.firstName, addressBookName);
-                personNum--;
+
+                var res = myAddressBook[addressBookName].Find(p => p.firstName.Equals(contacts.firstName) && p.lastName.Equals(contacts.lastName));
+                if (res != null)
+                {
+                    Console.WriteLine("Duplicate contacts not allowed");
+                }
+                else
+                {
+
+                    Console.WriteLine("\nCreated Contact :"
+                                    + "\n" + contacts.firstName
+                                    + "\n" + contacts.lastName
+                                    + "\n" + contacts.address
+                                    + "\n" + contacts.city
+                                    + "\n" + contacts.state
+                                    + "\n" + contacts.zipCode
+                                    + "\n" + contacts.phoneNunmber
+                                    + "\n" + contacts.eMail);
+                    myAddressBook[addressBookName].Add(contacts);
+                    Console.WriteLine("{0} {1}'s Contact Successfully Added to AddressBook : {2}", contacts.firstName, contacts.lastName, addressBookName);
+                    personNum--;
+                }
             }
         }
 
