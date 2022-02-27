@@ -16,5 +16,19 @@ namespace AddressBookSystem
         public string zipCode { get; set; }
         public string phoneNunmber { get; set; }
         public string eMail { get; set; }
+
+        public Contacts()
+        { }
+        public Contacts(string FirstName, string LastName, string Address, string City, string State, string ZipCode, string PhoneNumber, string Email)
+        {
+            this.firstName = FirstName;
+            this.lastName = LastName;
+            this.address = Address;
+            this.city = City;
+            this.state = State;
+            this.zipCode = ZipCode;
+            this.phoneNunmber = PhoneNumber;
+            this.eMail = Email;
+        }
     }
 }

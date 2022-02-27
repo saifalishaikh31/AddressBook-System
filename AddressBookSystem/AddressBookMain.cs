@@ -7,8 +7,9 @@ namespace AddressBookSystem
 {
     class AddressBookMain
     {
-        public Dictionary<string, List<Contacts>> myAddressBook = new Dictionary<string, List<Contacts>>();
         List<Contacts> addressBook = new List<Contacts>();
+        public Dictionary<string, List<Contacts>> myAddressBook = new Dictionary<string, List<Contacts>>();
+
 
         public void AddAddressBook()
         {
@@ -41,11 +42,11 @@ namespace AddressBookSystem
         {
             Console.WriteLine("Enter the new addressbook name\n");
             string addressBookName = Console.ReadLine();
-           if (myAddressBook.ContainsKey(addressBookName))
+            if (myAddressBook.ContainsKey(addressBookName))
             {
                 Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
                 AddressBookNewNameValidator();
-                
+
             }
             else
             {
@@ -82,8 +83,9 @@ namespace AddressBookSystem
                                 + "\n 2.Edit Contact."
                                 + "\n 3.Delete Contact."
                                 + "\n 4.Display Contact."
-                                + "\n 5 Go To Main."
-                                + "\n 4.Exit.\n");
+                                + "\n 5.Go To Main."
+                                + "\n 6.Search by city or state"
+                                + "\n 7.Exit.\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -99,9 +101,18 @@ namespace AddressBookSystem
                     case 4:
                         Display(addressBookName);
                         break;
-                    case 5: AddAddressBook();
+                    case 5:
+                        AddAddressBook();
                         break;
                     case 6:
+                    //    Console.WriteLine("Enter address book Name");
+                    //    string addBookName = Console.ReadLine();
+                        Console.WriteLine("Enter city or state to search contact");
+                        string cityOrState = Console.ReadLine();
+                        //SearchPersonByCityOrState(addBookName, cityOrState);
+                        SearchPersonByCityOrState(addressBookName, cityOrState);
+                        break;
+                    case 7:
                         flag = false;
                         break;
                     default:
@@ -147,7 +158,7 @@ namespace AddressBookSystem
                                 + "\n" + contacts.phoneNunmber
                                 + "\n" + contacts.eMail);
                 myAddressBook[addressBookName].Add(contacts);
-                Console.WriteLine("{0}'s Contact Successfully Added to AddressBook : {1} ", contacts.firstName,addressBookName);
+                Console.WriteLine("{0}'s Contact Successfully Added to AddressBook : {1} ", contacts.firstName, addressBookName);
                 personNum--;
             }
         }
@@ -155,7 +166,7 @@ namespace AddressBookSystem
         public void EditContact(string addressBookName)
         {
             Contacts contact = new Contacts();
-            if(myAddressBook[addressBookName].Count <= 0)
+            if (myAddressBook[addressBookName].Count <= 0)
             {
                 Console.WriteLine("Your Address Book is empty");
                 return;
@@ -210,7 +221,7 @@ namespace AddressBookSystem
                                 Console.WriteLine("Enter Correct option!!!");
                                 break;
                         }
-                        Console.WriteLine("{0}'s Contact Edited Successfully to AddressBook : {1} ", firstName,addressBookName);
+                        Console.WriteLine("{0}'s Contact Edited Successfully to AddressBook : {1} ", firstName, addressBookName);
                         return;
                     }
 
@@ -239,7 +250,7 @@ namespace AddressBookSystem
                     if (data.firstName == firstName)
                     {
                         myAddressBook[addressBookName].Remove(data);
-                        Console.WriteLine("{0}'s Contact Successfully Deleted from AddressBook : {1} ", firstName,addressBookName);
+                        Console.WriteLine("{0}'s Contact Successfully Deleted from AddressBook : {1} ", firstName, addressBookName);
                         return;
                     }
                     else
@@ -283,9 +294,22 @@ namespace AddressBookSystem
                 Console.WriteLine("Address Book is empty!!!");
             }
         }
+        public void SearchPersonByCityOrState(string addressBookName, string userData)
+        {
+            var searchResut = myAddressBook[addressBookName].FindAll(x => x.city == userData || x.state == userData);
+            if (searchResut.Count != 0)
+            {
+                foreach (var item in searchResut)
+                {
+                    Console.WriteLine(item.firstName);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No person found for this city or state");
+            } 
+        }
     }
-
-
 }
 
 
