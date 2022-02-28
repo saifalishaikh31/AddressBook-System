@@ -87,7 +87,8 @@ namespace AddressBookSystem
                                 + "\n 7.View by City or state."
                                 + "\n 8.Count Person by City or state."
                                 + "\n 9.Sort by Person FirstName."
-                                + "\n 10.Exit.\n");
+                                + "\n 10.Sort by City / State / ZipCode."
+                                + "\n 11.Exit.\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -124,6 +125,9 @@ namespace AddressBookSystem
                         SortByName(addressBookName);
                         break;
                     case 10:
+                        SortByCityStateZipCode(addressBookName);
+                        break;
+                    case 11:
                         flag = false;
                         break;
                     default:
@@ -438,6 +442,50 @@ namespace AddressBookSystem
                 // Console.WriteLine("FirstName : " + person.firstName + "LastName : " + person.lastName);
                 Console.WriteLine(person.ToString());
             }
+        }
+
+        public void SortByCityStateZipCode(string addressBookName)
+        {
+            if (myAddressBook[addressBookName].Count <= 0)
+            {
+                Console.WriteLine("Your Address Book is empty");
+                return;
+            }
+            bool flag = true;
+            while (flag)
+            {
+                Console.WriteLine("\nChoose an option \n1. Order by city \n2. Order by state \n3. Order by Zip \n4. Exit");
+                int option = Convert.ToInt32(Console.ReadLine());
+                switch (option)
+                {
+                    case 1:
+                        foreach (var person in myAddressBook[addressBookName].OrderBy(x => x.city))
+                        {
+                            Console.WriteLine(person.ToString());
+                        }
+                        break;
+                    case 2:
+                        foreach (var person in myAddressBook[addressBookName].OrderBy(x => x.state))
+                        {
+                            Console.WriteLine(person.ToString());
+                        }
+                        break;
+                    case 3:
+                        foreach (var person in myAddressBook[addressBookName].OrderBy(x => x.zipCode))
+                        {
+                            Console.WriteLine(person.ToString());
+                        }
+                        break;
+                    case 4:
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Entry");
+                        SortByCityStateZipCode(addressBookName);
+                        break;
+                }
+            }
+
         }
     }
 }
