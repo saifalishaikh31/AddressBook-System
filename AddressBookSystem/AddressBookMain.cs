@@ -85,7 +85,8 @@ namespace AddressBookSystem
                                 + "\n 5.Go To Main."
                                 + "\n 6.Search by city or state"
                                 + "\n 7.View by City or state"
-                                + "\n 8.Exit.\n");
+                                + "\n 8.Count Person by City or state"
+                                + "\n 9.Exit.\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -116,6 +117,9 @@ namespace AddressBookSystem
                         ViewPersonByCityOrState(addressBookName);
                         break;
                     case 8:
+                        CountPersonByCityOrState(addressBookName);
+                        break;
+                    case 9:
                         flag = false;
                         break;
                     default:
@@ -330,7 +334,6 @@ namespace AddressBookSystem
                 Console.WriteLine("Your Address Book is empty");
                 return;
             }
-            Contacts contact = new Contacts();
             bool flag = true;
             while (flag)
             {
@@ -369,6 +372,51 @@ namespace AddressBookSystem
                         {
                             Console.WriteLine("No person found for this state");
                         }
+                        break;
+                    case 3:
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Choose correct option");
+                        break;
+                }
+            }
+        }
+
+        public void CountPersonByCityOrState(string addressBookName)
+        {
+            if (myAddressBook[addressBookName].Count <= 0)
+            {
+                Console.WriteLine("Your Address Book is empty");
+                return;
+            }
+            bool flag = true;
+            while (flag)
+            {
+            Console.WriteLine("Choose an option \n1. Person count by city \n2. Person count by state \n3. Exit");
+            int option = Convert.ToInt32(Console.ReadLine());
+            int countCity=0, countState=0;
+                switch (option)
+                {
+                    case 1:
+                        Console.WriteLine("Enter the city");
+                        string city = Console.ReadLine();
+                        var searchCity = myAddressBook[addressBookName].FindAll(x => x.city == city);
+                        foreach (var book in searchCity)
+                        {
+                           countCity = searchCity.Count;
+                        }
+                        Console.WriteLine("Person count by city : " + countCity);
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter the state");
+                        string state = Console.ReadLine();
+                        var searchState = myAddressBook[addressBookName].FindAll(x => x.state == state);
+                        foreach (var book in searchState)
+                        {
+                            countState = searchState.Count;
+                        }
+                        Console.WriteLine("Person count by state : " + countState);
                         break;
                     case 3:
                         flag = false;
