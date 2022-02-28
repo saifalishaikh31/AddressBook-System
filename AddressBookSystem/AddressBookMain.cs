@@ -83,10 +83,11 @@ namespace AddressBookSystem
                                 + "\n 3.Delete Contact."
                                 + "\n 4.Display Contact."
                                 + "\n 5.Go To Main."
-                                + "\n 6.Search by city or state"
-                                + "\n 7.View by City or state"
-                                + "\n 8.Count Person by City or state"
-                                + "\n 9.Exit.\n");
+                                + "\n 6.Search by city or state."
+                                + "\n 7.View by City or state."
+                                + "\n 8.Count Person by City or state."
+                                + "\n 9.Sort by Person FirstName."
+                                + "\n 10.Exit.\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -120,6 +121,9 @@ namespace AddressBookSystem
                         CountPersonByCityOrState(addressBookName);
                         break;
                     case 9:
+                        SortByName(addressBookName);
+                        break;
+                    case 10:
                         flag = false;
                         break;
                     default:
@@ -425,6 +429,14 @@ namespace AddressBookSystem
                         Console.WriteLine("Choose correct option");
                         break;
                 }
+            }
+        }
+        public void SortByName(string addressBookName)
+        {
+            foreach (var person in myAddressBook[addressBookName].OrderBy(x => x.firstName))
+            {
+                // Console.WriteLine("FirstName : " + person.firstName + "LastName : " + person.lastName);
+                Console.WriteLine(person.ToString());
             }
         }
     }

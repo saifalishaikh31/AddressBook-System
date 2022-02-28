@@ -30,5 +30,9 @@ namespace AddressBookSystem
             this.phoneNunmber = PhoneNumber;
             this.eMail = Email;
         }
+        public override string ToString()
+        {
+            return $"{firstName} {lastName} {address} {city} {state} {zipCode} {phoneNunmber} {eMail}";
+        }
     }
 }
