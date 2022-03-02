@@ -549,5 +549,32 @@ namespace AddressBookSystem
                 sr.Close();
             }
         }
+        public void WriteCsvFile()
+        {
+            string csvPath = @"D:\BridgeLabz\AddressBook-System\AddressBookSystem\CSVAddressBook.csv";
+            StreamWriter sw = new StreamWriter(csvPath);
+            CsvWriter cw = new CsvWriter(sw, CultureInfo.InvariantCulture);
+
+            foreach (var book in myAddressBook.Values)
+            {
+                cw.WriteRecords<Contacts>(book);
+            }
+            Console.WriteLine("Write the addressBook with person contact as CSV file is Successfull");
+            sw.Flush();
+            sw.Close();
+        }
+        public void ReadCsvFile()
+        {
+            string csvPath = @"D:\BridgeLabz\AddressBook-System\AddressBookSystem\CSVAddressBook.csv";
+            StreamReader sr = new StreamReader(csvPath);
+            CsvReader cr = new CsvReader(sr, CultureInfo.InvariantCulture);
+            List<Contacts> readResult = cr.GetRecords<Contacts>().ToList();
+            Console.WriteLine("Reading from CSV file");
+            foreach (var item in readResult)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            sr.Close();
+        }
     }
 }
