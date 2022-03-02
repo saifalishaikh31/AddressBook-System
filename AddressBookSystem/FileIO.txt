@@ -1,0 +1,10 @@
+﻿AddressBook Name: address1
+
+FirstName     : Saif Ali
+LastName      : Shaikh
+Address       : Begum Peth
+City          : Solapur
+State         : Maharastra
+ZipCode       : 413001
+PhoneNumber   : 8857978071
+Email         : s@gmail.com

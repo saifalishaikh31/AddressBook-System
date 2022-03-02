@@ -32,7 +32,15 @@ namespace AddressBookSystem
         }
         public override string ToString()
         {
-            return $"{firstName} {lastName} {address} {city}{state} {zipCode} {phoneNunmber} {eMail}";
+           // return $"{firstName} {lastName} {address} {city} {state} {zipCode} {phoneNunmber} {eMail}";
+            return "\nFirstName     : " + firstName + 
+                   "\nLastName      : " + lastName +
+                   "\nAddress       : " + address +
+                   "\nCity          : " + city +
+                   "\nState         : " + state +
+                   "\nZipCode       : " + zipCode +
+                   "\nPhoneNumber   : " + phoneNunmber +
+                   "\nEmail         : " + eMail;
         }
     }
 }

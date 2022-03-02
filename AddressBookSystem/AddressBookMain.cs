@@ -1,5 +1,9 @@
-﻿using System;
+﻿using CsvHelper;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -7,9 +11,10 @@ namespace AddressBookSystem
 {
     class AddressBookMain
     {
-        List<Contacts> addressBook = new List<Contacts>();
+        public List<Contacts> addressBook = new List<Contacts>();
         public Dictionary<string, List<Contacts>> myAddressBook = new Dictionary<string, List<Contacts>>();
 
+      
         public void AddAddressBook()
         {
             bool flag = true;
@@ -88,7 +93,13 @@ namespace AddressBookSystem
                                 + "\n 8.Count Person by City or state."
                                 + "\n 9.Sort by Person FirstName."
                                 + "\n 10.Sort by City / State / ZipCode."
-                                + "\n 11.Exit.\n");
+                                + "\n 11.Write to File/"
+                                + "\n 12.Read from File/"
+                                + "\n 13.Write to CSV File."
+                                + "\n 14.Read from CSV File."
+                                + "\n 15.Write to JSON File"
+                                + "\n 16.Read from JSON File"
+                                + "\n 17.Exit.\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -128,6 +139,24 @@ namespace AddressBookSystem
                         SortByCityStateZipCode(addressBookName);
                         break;
                     case 11:
+                        WriteToFile(addressBookName);
+                        break;
+                    case 12:
+                        ReadFile(addressBookName);
+                        break;
+                    case 13:
+                        WriteCsvFile();
+                        break;
+                    case 14:
+                        ReadCsvFile();
+                        break;
+                    case 15:
+                        WriteJsonFile();
+                        break;
+                    case 16:
+                        ReadJsonFile();
+                        break;
+                    case 17:
                         flag = false;
                         break;
                     default:
@@ -487,13 +516,38 @@ namespace AddressBookSystem
             }
 
         }
+
+        public void WriteToFile(string addressBookName)
+        {
+            foreach (var item in myAddressBook[addressBookName])
+            {
+                string path = @"D:\BridgeLabz\AddressBook-System\AddressBookSystem\FileIO.txt";
+                if (File.Exists(path))
+                {
+                    StreamWriter sw = File.AppendText(path);
+                    sw.WriteLine("AddressBook Name: " + addressBookName);
+                    foreach (var person in myAddressBook[addressBookName])
+                    {
+                        sw.WriteLine(person.ToString());
+                    }
+                    sw.Close();
+                    Console.WriteLine(File.ReadAllText(path));
+                }
+            }
+        }
+        public void ReadFile(string addressBookName)
+        {
+            string path = @"D:\BridgeLabz\AddressBook-System\AddressBookSystem\FileIO.txt";
+            if (File.Exists(path))
+            {
+                StreamReader sr = File.OpenText(path);
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                }
+                sr.Close();
+            }
+        }
     }
 }
-    
-
-
-
-
-
-           
-          
