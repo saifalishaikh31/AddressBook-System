@@ -576,5 +576,26 @@ namespace AddressBookSystem
             }
             sr.Close();
         }
+        public void WriteJsonFile()
+        {
+            string jsonPath = @"D:\BridgeLabz\AddressBook-System\AddressBookSystem\JSONAddressBook.json";
+            foreach (var item in myAddressBook.Values)
+            {
+                string jsonData = JsonConvert.SerializeObject(item);
+                File.WriteAllText(jsonPath, jsonData);
+            }
+            Console.WriteLine("Write the addressBook with person contact as JSON file is Successfull");
+        }
+        public void ReadJsonFile()
+        {
+            string jsonPath = @"D:\BridgeLabz\AddressBook-System\AddressBookSystem\JSONAddressBook.json";
+            string jsonData = File.ReadAllText(jsonPath);
+            var jsonResult = JsonConvert.DeserializeObject<List<Contacts>>(jsonData).ToList();
+            Console.WriteLine("Reading from Json file");
+            foreach (var item in jsonResult)
+            {
+                Console.WriteLine(item);
+            }
+        }
     }
 }
